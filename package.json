@@ -1,0 +1,9 @@
+{
+  "name": "conduit-monorepo",
+  "version": "1.0.0",
+  "scripts": {
+    "start:backend": "dotnet run --project backend/src/Api/Api.csproj",
+    "start:frontend": "bun x wait-on tcp:5000 && cd frontend && bun dev",
+    "start": "bun x concurrently --kill-others --prefix \"[{name}]\" --names \"Backend,Frontend\" --prefix-colors \"magenta,cyan\" \"bun run start:backend\" \"bun run start:frontend\""
+  }
+}
