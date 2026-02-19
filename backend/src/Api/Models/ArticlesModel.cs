@@ -24,6 +24,8 @@ public record ArticleResponse(
     IEnumerable<string> TagList,
     Author Author,
     bool Favorited,
-    int FavoritesCount);
+    int FavoritesCount,
+    int ViewCount
+);
 
 public record ArticlesResponse(IEnumerable<ArticleResponse> Articles, int ArticlesCount);

@@ -119,4 +119,13 @@ public class ArticlesController(IArticlesHandler articlesHandler) : ControllerBa
         await articlesHandler.RemoveCommentAsync(slug, commentId, Username, cancellationToken);
         return Ok();
     }
+
+    [HttpGet("{slug}/viewed")]
+    public async Task<ActionResult<ArticleEnvelope<ArticleResponse>>> Viewed(string slug,
+       CancellationToken cancellationToken)
+    {
+        var article = await articlesHandler.IncrementViewCountAsync(slug, cancellationToken);
+        var result = ArticlesMapper.MapFromArticleEntity(article);
+        return new ArticleEnvelope<ArticleResponse>(result);
+    }
 }

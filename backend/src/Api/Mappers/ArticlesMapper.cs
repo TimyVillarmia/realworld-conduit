@@ -20,7 +20,8 @@ public static class ArticlesMapper
                 author.Bio,
                 author.Followers.Any()),
             article.Favorited,
-            article.FavoritesCount);
+            article.FavoritesCount,
+            article.ViewCount);
         return result;
     }
 
