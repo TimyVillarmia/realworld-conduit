@@ -11,6 +11,7 @@ class Article {
     updatedAt = '',
     favorited = false,
     favoritesCount = 0,
+    viewCount = 0,
     author = new Author(),
   }) {
     this.slug = slug
@@ -22,6 +23,7 @@ class Article {
     this.updatedAt = new Date(updatedAt).toDateString()
     this.favorited = favorited
     this.favoritesCount = favoritesCount
+    this.viewCount = viewCount
     this.author = new Author(author)
   }
 }
