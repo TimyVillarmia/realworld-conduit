@@ -39,4 +39,7 @@ public interface IConduitRepository
     public void Follow(string username, string followerUsername);
 
     public void UnFollow(string username, string followerUsername);
+
+    public Task<Article?> IncrementViewCount(string slug, CancellationToken cancellationToken);
+
 }

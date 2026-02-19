@@ -13,7 +13,8 @@ public class ArticlesHandler(IConduitRepository repository) : IArticlesHandler
                 newArticle.Title,
                 newArticle.Description,
                 newArticle.Body
-            ) { Author = user, Tags = tags.ToList() };
+            )
+        { Author = user, Tags = tags.ToList() };
 
         repository.AddArticle(article);
         await repository.SaveChangesAsync(cancellationToken);
@@ -29,7 +30,8 @@ public class ArticlesHandler(IConduitRepository repository) : IArticlesHandler
         {
             throw new ProblemDetailsException(new ValidationProblemDetails
             {
-                Status = 422, Detail = "Article not found"
+                Status = 422,
+                Detail = "Article not found"
             });
         }
 
@@ -37,7 +39,8 @@ public class ArticlesHandler(IConduitRepository repository) : IArticlesHandler
         {
             throw new ProblemDetailsException(new ValidationProblemDetails
             {
-                Status = 403, Detail = $"{username} is not the author"
+                Status = 403,
+                Detail = $"{username} is not the author"
             });
         }
 
@@ -54,7 +57,8 @@ public class ArticlesHandler(IConduitRepository repository) : IArticlesHandler
         {
             throw new ProblemDetailsException(new ValidationProblemDetails
             {
-                Status = 422, Detail = "Article not found"
+                Status = 422,
+                Detail = "Article not found"
             });
         }
 
@@ -62,7 +66,8 @@ public class ArticlesHandler(IConduitRepository repository) : IArticlesHandler
         {
             throw new ProblemDetailsException(new ValidationProblemDetails
             {
-                Status = 403, Detail = $"{username} is not the author"
+                Status = 403,
+                Detail = $"{username} is not the author"
             });
         }
 
@@ -129,7 +134,8 @@ public class ArticlesHandler(IConduitRepository repository) : IArticlesHandler
         {
             throw new ProblemDetailsException(new ValidationProblemDetails
             {
-                Status = 422, Detail = "Article not found"
+                Status = 422,
+                Detail = "Article not found"
             });
         }
 
@@ -140,7 +146,8 @@ public class ArticlesHandler(IConduitRepository repository) : IArticlesHandler
         {
             throw new ProblemDetailsException(new ValidationProblemDetails
             {
-                Status = 422, Detail = "Comment not found"
+                Status = 422,
+                Detail = "Comment not found"
             });
         }
 
@@ -148,7 +155,8 @@ public class ArticlesHandler(IConduitRepository repository) : IArticlesHandler
         {
             throw new ProblemDetailsException(new ValidationProblemDetails
             {
-                Status = 422, Detail = "User does not own Article"
+                Status = 422,
+                Detail = "User does not own Article"
             });
         }
 
@@ -222,6 +230,25 @@ public class ArticlesHandler(IConduitRepository repository) : IArticlesHandler
         var tags = await repository.GetTagsAsync(cancellationToken);
         return tags.Select(x => x.Id).ToArray();
     }
-    
-    
+
+    public async Task<Article> IncrementViewCountAsync(string slug, CancellationToken cancellationToken)
+    {
+        var article = await repository.GetArticleBySlugAsync(slug, false, cancellationToken);
+
+        if (article == null)
+        {
+            throw new ProblemDetailsException(new ValidationProblemDetails
+            {
+                Status = 422,
+                Detail = "Article not found",
+                Errors = { new KeyValuePair<string, string[]>("slug", new[] { slug }) }
+            });
+        }
+        await repository.IncrementViewCount(slug, cancellationToken);
+
+        // Fetch again or update local object to get fresh state
+        var updatedArticle = await repository.GetArticleBySlugAsync(slug, true, cancellationToken);
+        return updatedArticle;
+
+    }
 }

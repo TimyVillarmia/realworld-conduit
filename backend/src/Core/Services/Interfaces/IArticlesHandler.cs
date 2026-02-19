@@ -29,4 +29,6 @@ public interface IArticlesHandler
     public Task<Article> DeleteFavorite(string slug, string username, CancellationToken cancellationToken);
 
     public Task<string[]> GetTags(CancellationToken cancellationToken);
+
+    public Task<Article> IncrementViewCountAsync(string slug, CancellationToken cancellationToken);
 }

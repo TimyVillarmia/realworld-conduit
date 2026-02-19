@@ -120,7 +120,7 @@ public class ArticlesController(IArticlesHandler articlesHandler) : ControllerBa
         return Ok();
     }
 
-    [HttpGet("{slug}/viewed")]
+    [HttpPost("{slug}/viewed")]
     public async Task<ActionResult<ArticleEnvelope<ArticleResponse>>> Viewed(string slug,
        CancellationToken cancellationToken)
     {

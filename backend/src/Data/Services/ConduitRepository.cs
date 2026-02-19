@@ -207,4 +207,15 @@ public class ConduitRepository(ConduitContext context) : IConduitRepository
     {
         context.FollowedUsers.Remove(new UserLink(username, followerUsername));
     }
+
+    public async Task<Article?> IncrementViewCount(string slug, CancellationToken cancellationToken)
+    {
+        var article = await context.Articles.FirstOrDefaultAsync(x => x.Slug == slug, cancellationToken);
+        if (article != null)
+        {
+            article.ViewCount++;
+            await context.SaveChangesAsync(cancellationToken);
+        }
+        return article;
+    }
 }

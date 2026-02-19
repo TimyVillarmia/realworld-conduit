@@ -12,6 +12,7 @@ public class Article(string title, string description, string body)
     public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
     public bool Favorited { get; set; }
     public int FavoritesCount { get; set; } = 0;
+    public int ViewCount { get; set; } = 0;
     public ICollection<Tag> Tags { get; set; } = new List<Tag>();
     public List<Comment> Comments { get; set; } = new();
     public ICollection<ArticleFavorite> ArticleFavorites { get; set; } = new List<ArticleFavorite>();
