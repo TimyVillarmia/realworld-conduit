@@ -1,4 +1,4 @@
-# RealWorld Conduit: Full-Stack .NET & React Monorepo
+# RealWorld Conduit: Full-Stack .NET & React 
 
 This repository represents a full-stack implementation of the [RealWorld](https://github.com/gothinkster/realworld) specification. It integrates a high-performance **.NET** backend with a modern **React** frontend to create a complete social blogging platform.
 
@@ -9,7 +9,7 @@ This project is built by integrating and extending the following open-source rep
 - **[Backend (Dotnet 8)](https://github.com/Erikvdv/realworlddotnet)**: A Clean Architecture implementation using ASP.NET, Entity Framework Core, SQLite.
 - **[Frontend (React + Vite)](https://github.com/romansndlr/react-vite-realworld-example-app)**: A functional React application utilizing React Query for state management and Axios for API communication.
 
-## 🚀 Quick Start (Monorepo)
+## 🚀 Quick Start
 
 The root folder is configured to manage both Frontend & Backend simultaneously using `concurrently` and `wait-on`.
 
